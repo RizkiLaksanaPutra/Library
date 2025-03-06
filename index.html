@@ -1,30 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Library</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>Library</h1>
-  </header>
-  <main>
-    <form>
-      <label for="title">Book Title</label>
-      <input type="text" name="title" id="title">
-      <label for="author">Book Author</label>
-      <input type="text" name="author" id="author">
-      <label for="year">Book Year</label>
-      <input type="text" name="year" id="year">
-      <label for="pages">Book Pages</label>
-      <input type="text" name="pages" id="pages">
-      <button id="submitButton">Submit</button>
-    </form>
-    <p id="contoh"></p>
-  </main>
-  <footer></footer>
-  <script src="main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Personal Book Library</h1>
+      <p>
+        This is a project for The Odin Project in which I have to create a
+        library using Object Constructors and Local Storage. You can also view
+        the GitHub repository for this project.
+      </p>
+    </header>
+    <main>
+      <form id="book-form">
+        <div>
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" required/>
+        </div>
+        <div>
+          <label for="author">Author</label>
+          <input type="text" name="author" id="author" required/>
+        </div>
+        <div>
+          <label for="year">Year</label>
+          <input type="number" name="year" id="year" required/>
+        </div>
+        <div>
+          <label for="pages">Pages</label>
+          <input type="number" name="pages" id="pages" required/>
+        </div>
+        <div>
+          <label for="status">Status</label>
+          <select name="status" id="status">
+            <option value="Read">Read</option>
+            <option value="Not read">Not Read</option>
+          </select>
+        </div>
+      </form>
+      <input
+        type="submit"
+        form="book-form"
+        name="submit"
+        id="submit"
+        value="Submit"
+      />
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Year</th>
+              <th>Pages</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="book-table"></tbody>
+        </table>
+      </div>
+    </main>
+    <footer></footer>
+    <script src="main.js"></script>
+  </body>
 </html>
