@@ -67,40 +67,18 @@ function clearForm() {
 
 function render() {
   tableBody.innerHTML = "";
-  library.forEach((book) => {
-    const tableRow = document.createElement("tr");
-
-    const titleData = document.createElement("td");
-    titleData.textContent = book.title;
-    tableRow.appendChild(titleData);
-
-    const authorData = document.createElement("td");
-    authorData.textContent = book.author;
-    tableRow.appendChild(authorData);
-
-    const yearData = document.createElement("td");
-    yearData.textContent = book.year;
-    tableRow.appendChild(yearData);
-
-    const pagesData = document.createElement("td");
-    pagesData.textContent = book.pages;
-    tableRow.appendChild(pagesData);
-
-    const statusDataRow = document.createElement("td");
-    const statusData = document.createElement("button");
-    statusData.textContent = book.status;
-    statusData.classList.add("status-button");
-    statusDataRow.appendChild(statusData);
-    tableRow.appendChild(statusDataRow);
-
-    const deleteButtonRow = document.createElement("td");
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.classList.add("delete-button");
-    deleteButtonRow.appendChild(deleteButton);
-    tableRow.appendChild(deleteButtonRow);
-
-    tableBody.appendChild(tableRow);
+  library.forEach((book, index) => {
+    const htmlTable = `
+      <tr>
+        <td>${book.title}</td>
+        <td>${book.author}</td>
+        <td>${book.year}</td>
+        <td>${book.pages}</td>
+        <td><button class="status-button">${book.status}</button></td>
+        <td><button class="delete-button" data-index="${index}">Delete</button></td>
+      </tr>
+    `;
+    tableBody.insertAdjacentHTML("afterbegin", htmlTable);
   });
 }
 
