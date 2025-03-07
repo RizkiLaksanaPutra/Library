@@ -67,7 +67,7 @@ function clearForm() {
 
 function render() {
   tableBody.innerHTML = "";
-  library.forEach((book, index) => {
+  library.forEach((book) => {
     const htmlTable = `
       <tr>
         <td>${book.title}</td>
@@ -75,7 +75,7 @@ function render() {
         <td>${book.year}</td>
         <td>${book.pages}</td>
         <td><button class="status-button">${book.status}</button></td>
-        <td><button class="delete-button" data-index="${index}">Delete</button></td>
+        <td><button class="delete-button">Delete</button></td>
       </tr>
     `;
     tableBody.insertAdjacentHTML("afterbegin", htmlTable);
