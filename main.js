@@ -34,7 +34,19 @@ const DEFAULT_DATA = [
   },
 ];
 
-library.push(...DEFAULT_DATA);
+function loadLibrary() {
+  const storedLibrary = localStorage.getItem("library");
+  if (storedLibrary) {
+    library = JSON.parse(storedLibrary);
+  } else {
+    library.push(...DEFAULT_DATA);
+    saveLibrary();
+  }
+}
+
+function saveLibrary() {
+  localStorage.setItem("library", JSON.stringify(library));
+}
 
 function Book(id, title, author, year, pages, status) {
   this.id = id;
@@ -47,7 +59,7 @@ function Book(id, title, author, year, pages, status) {
 
 function addBookToLibrary() {
   const newBook = new Book(
-    (id = self.crypto.randomUUID()),
+    self.crypto.randomUUID(),
     bookTitle.value,
     bookAuthor.value,
     bookYear.value,
@@ -55,6 +67,7 @@ function addBookToLibrary() {
     bookStatus.value
   );
   library.push(newBook);
+  saveLibrary();
 }
 
 function clearForm() {
@@ -67,7 +80,7 @@ function clearForm() {
 
 function render() {
   tableBody.innerHTML = "";
-  library.forEach((book) => {
+  library.forEach((book, index) => {
     const htmlTable = `
       <tr>
         <td>${book.title}</td>
@@ -75,11 +88,35 @@ function render() {
         <td>${book.year}</td>
         <td>${book.pages}</td>
         <td><button class="status-button">${book.status}</button></td>
-        <td><button class="delete-button">Delete</button></td>
+        <td><button class="delete-button" data-index="${index}">Delete</button></td>
       </tr>
     `;
     tableBody.insertAdjacentHTML("afterbegin", htmlTable);
   });
+
+  document.querySelectorAll(".delete-button").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const index = e.target.getAttribute("data-index");
+      library.splice(index, 1);
+      saveLibrary();
+      render();
+    });
+  });
+
+  document.querySelectorAll(".status-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const statusText = button.textContent;
+      if (statusText === "Read") {
+        button.textContent = "Not read";
+      } else if (statusText === "Not read") {
+        button.textContent = "Read";
+      }
+      const index = Array.from(button.closest("tr").children).indexOf(button.parentElement);
+      library[index].status = button.textContent;
+      saveLibrary();
+    });
+  });
 }
 
+loadLibrary();
 render();
